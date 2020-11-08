@@ -67,3 +67,44 @@ module.exports = (sequelize, Sequelize) => {
 
   return Event;
 };
+
+/* Calendar - a collection of events
+ * Id: Calendar Id
+ * Owner: The userId of the owner of the calendar
+ * Title: The title of the calendar
+ * Description: A short description of the calendar, can be null
+ * Events: A relationship consisting of all events that are tied to this calendar.  The relationship is 
+ * many events to one calendar - this is set outside of the const
+ */
+module.exports = (sequelize, Sequelize) => {
+  const Calendar = sequelize.define("Calendar", {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+    },
+    owner: {
+      type: Sequelize.INTEGER,
+      nullable: false
+    },
+    title: {
+      type: Sequelize.STRING,
+      nullable: false
+    },
+    description: {
+      type: Sequelize.STRING,
+      nullable: true
+    }
+  });
+
+  return Calendar;
+};
+
+
+/* SET RELATIONSHIPS */
+
+// NOTE: not 100% sure if this is how it works properly, using this link as a reference a second pair of eyes would be nice:
+// https://levelup.gitconnected.com/table-relationships-in-sequelize-2e2533580c2a
+
+// add Calendar id foreign key to all events
+Event.belongsTo(Calendar, { foreignKey: 'calendar_id'});
+Calendar.hasMany(Event, {foreignKey: 'calendar_id'})
