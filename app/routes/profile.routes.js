@@ -1,5 +1,7 @@
+/* Authors: Timothy S. Poehlman, [ADD YOUR NAME HERE IF YOU MODIFY THIS PROGRAM] */
+
 module.exports = app => {
-  const User = require("../controllers/controller.js");
+  const User = require("../controllers/user.controller.js");
 
   var router = require("express").Router();
 

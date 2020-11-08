@@ -1,7 +1,18 @@
+/* Authors: Timothy S. Poehlman, [ADD YOUR NAME HERE IF YOU MODIFY THIS PROGRAM] */
+
 const db = require("../models")
 const User = db.User
 const Op = db.Sequelize.Op
 const { v4: uuidv4 } = require("uuid")
+
+// basic tutorial on using database objects:
+// create a new Tutorial: create(object)
+// find a Tutorial by id: findByPk(id)
+// get all Tutorials: findAll()
+// update a Tutorial by id: update(data, where: { id: id })
+// remove a Tutorial: destroy(where: { id: id })
+// remove all Tutorials: destroy(where: {})
+// find all Tutorials by title: findAll({ where: { title: ... } })
 
 // Create and Save a new Users
 exports.create = (req, res) => {

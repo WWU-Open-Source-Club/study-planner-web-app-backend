@@ -1,4 +1,6 @@
-// https://bezkoder.com/node-express-sequelize-postgresql/
+/* Authors: Timothy S. Poehlman, [ADD YOUR NAME HERE IF YOU MODIFY THIS PROGRAM]
+ * template credits: https://bezkoder.com/node-express-sequelize-postgresql/
+ */
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
