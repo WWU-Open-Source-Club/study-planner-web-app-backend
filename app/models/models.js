@@ -16,13 +16,18 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true
     },
     username: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      nullable: false,
+      unique: true
     },
     email: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      nullable: false,
+      unique: true
     },
     password: {
-      type: Sequelize.BOOLEAN
+      type: Sequelize.BOOLEAN,
+      nullable: false
     },
     // calendar : {
     //   type: Sequelize.relationship('Calendar')
@@ -98,13 +103,3 @@ module.exports = (sequelize, Sequelize) => {
 
   return Calendar;
 };
-
-
-/* SET RELATIONSHIPS */
-
-// NOTE: not 100% sure if this is how it works properly, using this link as a reference a second pair of eyes would be nice:
-// https://levelup.gitconnected.com/table-relationships-in-sequelize-2e2533580c2a
-
-// add Calendar id foreign key to all events
-Event.belongsTo(Calendar, { foreignKey: 'calendar_id'});
-Calendar.hasMany(Event, {foreignKey: 'calendar_id'})
