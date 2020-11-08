@@ -1,54 +1,39 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-
-//used to import the queries
-const database_setup = require('./routes/database_setup.js');
+// https://bezkoder.com/node-express-sequelize-postgresql/
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
-const port = process.env.PORT || 5000;
 
+// db
+const db = require("./app/models");
+//force true will drop the table and reconstruct, when you need to reconstruct uncomment this one and recomment other
+db.sequelize.sync();
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db.");
+// });
+
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
+
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
 app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the Study Planner Web Application." });
 });
 
-app.post('/api/world', (req, res) => {
-  console.log(req.body);
-  res.send(
-    `I received your POST request. This is what you sent me: ${req.body.post}`,
-  );
+require("./app/routes/profile.routes")(app);
+
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
-
-app.listen(port, () => console.log(`Listening on port ${port}`));
-
-app.get('/', (req, res) => {
-  merchant_model.getUsers()
-  .then(response => {
-    res.status(200).send(response);
-  })
-  .catch(error => {
-    res.status(500).send(error);
-  })
-})
-
-app.post('/users', (req, res) => {
-  merchant_model.createusers(req.body)
-  .then(response => {
-    res.status(200).send(response);
-  })
-  .catch(error => {
-    res.status(500).send(error);
-  })
-})
-
-app.delete('/users/:id', (req, res) => {
-  merchant_model.deleteUsers(req.params.id)
-  .then(response => {
-    res.status(200).send(response);
-  })
-  .catch(error => {
-    res.status(500).send(error);
-  })
-})
