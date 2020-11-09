@@ -8,7 +8,7 @@ How to begin:
 
 How to test:
 (1) open web browser
-(2) type in url http://localhost:5000/api/hello (replace hello with your choice of route)
+(2) type in url http://localhost:8080/api/hello (replace hello with your choice of route)
 (3) see result (NOTE: This is only for GET requests, for POST you will have to send information through the application)
 
 How to use w/ front end:
